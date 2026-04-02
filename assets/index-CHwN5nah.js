@@ -86,11 +86,15 @@ async function getSearchMovies(arg) {
     onLoading
   });
 }
+const starEmptyImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAxCAYAAACcXioiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQ4SURBVHgB7VlNctMwFP7UwrRl0/YGzgloNwyURd0TQE5AeoK2J2hyAuAEaU9QOEHMgvCzSW9QcwLChqbDNOI9RVEk106sWGZY5JvR+FlRJD29fxlYYYX/F/I79uQXxKgRAjWANh3Ro0ct0l0ptSPxQj2DYg31oIvZ5qHpLmpAcAno07+ZdWBIq+zoN5ZCgoCoQwLnhhK4oBUS8y7xGoFRhwT49CP9eqSfPb3aEBtoiH16BkJQCdDmW7AMl9VFq0w6GUCqdKvGBENoFXpj0R2LvjSUwCsERDAGtPHGVldiqBHeWf0xxwcEQkgJOMZr+3xxpHQ+Mb//CWfMIRmIDSUtlZlhplLrOJED41orIQgDecabHaP6pPY+E2OOEQChJFBkvC4E3lv0CQIgNw4o8Y6UiCNicQdjanxqQrVtQ0s9xk0bGkU5j+zR+E38tFa/1pF6aD1/GXrqfteJfkySzYkfImfjV8CS4mXjfY7jeUNkn+YXSxvxBR3Amc3II+fnEd4CS+tmQlH2bOGoO2JwC8umFS3aI8MckiuBPol3lnilqs3EyfjxQORjak/yxTsPStq/tYraKikMvY2pak769/SOhyTl3ek8j+aswb68g5qgGb4uM1Z+oxgzzg9+rheyvQTQll9xFcpfLwNeW9nMGG2r+4M9xmWAQ760BrCejjDQacI/hVqT1nYMXtDeMnYmCv7chp0asC2soymelRN5VcjPpC5ryhtGpnOMjnjpSEIhN5CR7reJNZvTCPckiT5OUTNIbU9oVwPYm5fkOnM2z5hb0OSeBNlGXcatjbVtdaX03qTNF0p+YUWWc8Mw1cXjUJWVchS3VPS7+s5RurnoJqNUSalSgI3MAnw6m9ivyoSO/lmVuaRgd1pm7lLJHOfz4gBNuIlaFKQ8HKlDicw7G+sBWmUPxisbVcYtrVixhqeojtiiO0XGWgT/dFqoED+BpNSiOlJrPu+g6c+AdEJ6gupIDLVEwe91L5S9dSOVqnyvpB3EjUkiN7Hr4xj8JBD+9CcFv7D8/MgvzfZjwBXxp0XDPa7XZ3NJvysXXxuILTopGsSbppRgwOkHvfb4unFBQpgYytMOSuuwo/+ZosKM4aB0R+mALMiZJGW7lLLnRddMMdUo+y3BRwKxtZEHuYlSFY6o9ualrtymEOq3nr6GcSGcOWOUhA8Dh5ht7KMhSTLUOFdy8yVWC4F91eBcdPGYLv2n66iVNSf95xAlsZwE9Gmp1FcqPY+tjQxpVk7C1Ccl3VqYFOKpNR/39UyKbktAlpeAjw1I65Xv/c+RFTWnGVuUbhf4cX3ibbgXYYxUzSlVBeZlBz4M9FCsmym147Kfj9Tt9P2DOiOLUgz4qFCnsJ/Tao9vX1ya0vjGnDnTsl7IL5XoU5Sc3GlGyhNR2Vn106lSK6lu66YBLEVNn2RrBZevqoRdYYUVvPAXJrOCc9SFL6sAAAAASUVORK5CYII=";
+const noImagePlanetImg = "/javascript-movie-review/assets/no_image_planet-DQ-7fxyf.png";
+const screamingPlanetImg = "/javascript-movie-review/assets/screaming_planet-BZvmNwfY.svg";
+const planetAndStarImg = "/javascript-movie-review/assets/planet_and_star-CJk4xH6r.png";
 const IMAGE_PATH = "https://image.tmdb.org/t/p/original";
 const Component = {
   movie(movieData) {
     const { poster_path, title, vote_average } = movieData;
-    const src = poster_path ? `${IMAGE_PATH}/${poster_path}` : "src/images/no_image_planet.png";
+    const src = poster_path ? `${IMAGE_PATH}/${poster_path}` : noImagePlanetImg;
     return `
     <li>
       <div class="item">
@@ -101,7 +105,7 @@ const Component = {
       />
         <div class="item-desc">
           <p class="rate">
-            <img src="src/images/star_empty.png" class="star" /><span>${vote_average.toFixed(1)}</span>
+            <img src="${starEmptyImg}" class="star" /><span>${vote_average.toFixed(1)}</span>
             </p>
             <strong>${title}</strong>
         </div>
@@ -134,7 +138,7 @@ const Component = {
         <div class="overlay" aria-hidden="true"></div>
           <div class="container">
             <div class="rate">
-              <img src="src/images/star_empty.png" class="star" />
+              <img src="${starEmptyImg}" class="star" />
               <span class="rate-value">${vote_average.toFixed(1)}</span>
             </div>
             <div class="title">${title}</div>
@@ -147,7 +151,7 @@ const Component = {
   emptyResult() {
     return `
       <div class="notice-box">
-        <img src="src/images/screaming_planet.svg">
+        <img src="${screamingPlanetImg}">
         <p class="notice-text">검색 결과가 없습니다.</p>
       </div>
       `;
@@ -155,7 +159,7 @@ const Component = {
   error(message) {
     return `
       <div class="notice-box">
-        <img src="src/images/planet_and_star.png">
+        <img src="${planetAndStarImg}">
         <span class="notice-text">${message}</span>
       </div>
     `;
