@@ -61,7 +61,7 @@ const App = {
         State.setRequestMovieCount(movies.length);
         MovieRenderer.renderInitialMovies(movies);
       } catch (err) {
-        MovieRenderer.renderError();
+        MovieRenderer.renderError(err);
       }
     }
   },
@@ -76,7 +76,7 @@ const App = {
       State.setNextPageNum(page + 1);
       MovieRenderer.renderLoadMoreMovies(movies);
     } catch (err) {
-      MovieRenderer.renderError();
+      MovieRenderer.renderError(err);
       Renderer.clearBanner();
     }
   },
@@ -93,7 +93,7 @@ const App = {
       State.setNextSearchPageNum(page + 1);
       State.setSearchQuery(query);
     } catch (err) {
-      MovieRenderer.renderError();
+      MovieRenderer.renderError(err);
     }
   },
 
@@ -108,7 +108,7 @@ const App = {
       State.setNextSearchPageNum(page + 1);
       MovieRenderer.renderLoadMoreSearchMovies(movies);
     } catch (err) {
-      MovieRenderer.renderError();
+      MovieRenderer.renderError(err);
     }
   },
 };
