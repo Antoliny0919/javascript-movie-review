@@ -178,6 +178,8 @@ button.primary {
   font-weight: bold;
   background-color: var(--color-lightblue-90);
   border-radius: 4px;
+  width: 80px;
+  padding: 10px 0;
 }
 
 #wrap {
@@ -303,6 +305,9 @@ span.rate-value {
 
 .top-rated-movie > .container {
   padding-block: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .title {
@@ -354,10 +359,12 @@ footer.footer p:not(:last-child) {
 .notice-box {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding-block: 120px;
   align-items: center;
+  gap: 50px;
   justify-content: center;
+  width: 100%;
+  padding-block: 120px;
+  grid-column: 1 / -1;
 }
 
 .notice-text {
@@ -391,6 +398,7 @@ footer.footer p:not(:last-child) {
 }
 
 .thumbnail-list {
+  position: relative;
   margin: 3.5rem auto 56px;
   display: grid;
   grid-template-columns: repeat(5, 200px);
@@ -427,4 +435,221 @@ p.rate > span {
 .item .star {
   width: 16px;
   top: 1px;
+}
+:root {
+  --color-white: #ffffff;
+  --color-lightblue-90: #0da9fd;
+  --color-bluegray-100: #242a32;
+  --color-bluegray-80: #39414d;
+  --color-bluegray-10: #e0e6ed;
+  --color-bluegray-30: #a6b1c3;
+  --color-bluegray-90: #2f3844;
+  --color-gray-300: #d1d3d4;
+  --color-yellow: #ffc700;
+  --color-ffffff: #ffffff;
+  --color-242a32: #242a32;
+}
+
+/* modal.css */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-background {
+  display: none;
+}
+
+.modal-background[open] {
+  position: fixed;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경을 위해 설정 */
+  backdrop-filter: blur(10px); /* 블러 효과 적용 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.modal {
+  background-color: var(--color-bluegray-90);
+  padding: 20px;
+  border-radius: 16px;
+  color: white;
+  z-index: 2;
+  position: relative;
+  width: 1000px;
+}
+
+.close-modal {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-container {
+  display: flex;
+}
+
+.modal-image img {
+  width: 380px;
+  border-radius: 16px;
+}
+
+.modal-description {
+  width: 100%;
+  padding: 8px;
+  margin-left: 16px;
+  line-height: 1.6rem;
+}
+
+.modal-description .rate > img {
+  position: relative;
+  top: 5px;
+}
+
+.modal-description > *:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.modal-description h2 {
+  font-size: 2rem;
+  margin: 0 0 8px;
+}
+
+.detail {
+  max-height: 430px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .average-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.modal .category {
+  margin: 16px 0;
+}
+
+.modal .detail-container dt,
+.modal .my-rating-container dt,
+.modal .my-rating-container dd {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0;
+}
+
+.modal .my-rating-container dd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal .my-rating-container dd button {
+  background-color: transparent;
+  padding: 0;
+}
+
+.modal .my-rating-container dd button img {
+  width: 32px;
+  height: 32px;
+}
+
+.modal .my-rating-container .rating-ratio {
+  color: var(--color-bluegray-30);
+}
+@media (max-width: 1024px) {
+  .thumbnail-list {
+    grid-template-columns: repeat(4, 200px);
+  }
+
+  .header-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h1.logo {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .thumbnail-list {
+    grid-template-columns: repeat(3, 200px);
+  }
+
+  .modal-background[open] {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    border-radius: 0;
+  }
+
+  .modal-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #movie-detail-poster {
+    width: 200px;
+  }
+
+  #movie-detail-title,
+  .modal .category {
+    text-align: center;
+  }
+
+  .modal .average-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .thumbnail-list {
+    grid-template-columns: repeat(1, 200px);
+  }
+
+  .top-rated-movie .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  #movie-detail-poster {
+    display: none;
+  }
+
+  .modal .my-rating-container,
+  .modal .detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal .my-rating-container dd {
+    display: flex;
+    flex-direction: column;
+  }
 }
